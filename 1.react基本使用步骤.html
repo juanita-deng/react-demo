@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="zh-Hans-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>课程</title>
+</head>
+<body>
+<div id="app"></div>
+<script src="./node_modules/react/umd/react.development.js"></script>
+<script src="./node_modules/react-dom/umd/react-dom.development.js"></script>
+<script>
+        /*
+            react基本使用步骤：
+                1.下载两个包 react（必引入） react-dom（如果是RN,则引入react-native）
+                   yarn add /mpm i react react-dom
+                2.脚本引入两个包
+                3.创建react元素
+                  参数1：创建的元素名
+                  参数2:元素的属性，如果没有可以为null
+                  参数3:元素的子节点
+                  返回值：react元素
+                4.渲染元素到页面中
+        */
+       const el = React.createElement('h1',null,'hello React')
+       ReactDOM.render(el,document.getElementById('app'))
+    </script>
+   
+</body>
+</html>

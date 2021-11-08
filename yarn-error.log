@@ -1,0 +1,31 @@
+Arguments: 
+  /usr/local/bin/node /Users/juanita-deng/.npm-global/bin/yarn add react react-dom
+
+PATH: 
+  /Users/juanita-deng/.npm-global/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/juanita-deng/.npm-global/bin
+
+Yarn version: 
+  1.22.17
+
+Node version: 
+  10.15.3
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: http://10.241.65.86:8081/repository/npm-group/react: ETIMEDOUT
+      at Timeout._onTimeout (/Users/juanita-deng/.npm-global/lib/node_modules/yarn/lib/cli.js:141543:19)
+      at ontimeout (timers.js:436:11)
+      at tryOnTimeout (timers.js:300:5)
+      at listOnTimeout (timers.js:263:5)
+      at Timer.processTimers (timers.js:223:10)
+
+npm manifest: 
+  No manifest
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
