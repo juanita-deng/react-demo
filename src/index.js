@@ -1,17 +1,20 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import reactDom from 'react-dom';
+class Hello extends React.Component {
+  render() {
+    return <div>我是类组件</div>;
+  }
+}
+//函数组件
+function Demo() {
+  return <div>我是函数组件</div>;
+}
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+const el = (
+  <div>
+    <Hello />
+    <Demo />
+  </div>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+reactDom.render(el, document.getElementById('root'));
