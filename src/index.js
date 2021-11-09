@@ -1,20 +1,21 @@
 import React from 'react';
 import reactDom from 'react-dom';
-class Hello extends React.Component {
+
+class Demo extends React.Component {
+  state = {
+    username: 'juanita',
+    desc: '我是一个热爱生活的girl',
+    city: '1',
+    isSingle: true,
+  };
   render() {
-    return <div>我是类组件</div>;
+    return (
+      <div>
+        <h1>react案例--受控组件多个表单元素</h1>
+        <hr />
+      </div>
+    );
   }
 }
-//函数组件
-function Demo() {
-  return <div>我是函数组件</div>;
-}
 
-const el = (
-  <div>
-    <Hello />
-    <Demo />
-  </div>
-);
-
-reactDom.render(el, document.getElementById('root'));
+reactDom.render(<Demo />, document.getElementById('root'));
