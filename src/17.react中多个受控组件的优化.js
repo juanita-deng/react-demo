@@ -20,7 +20,7 @@ class Demo extends React.Component {
           <textarea cols='30' rows='10' name='desc' value={this.state.desc} onChange={this.handleChange}></textarea>
         </div>
         <div>
-          <select name='city' onChange={this.handleChange.bind(this)}>
+          <select name='city' onChange={this.handleChange}>
             <option value='1'>上海</option>
             <option value='2'>北京</option>
             <option value='3'> 深圳</option>
@@ -37,8 +37,9 @@ class Demo extends React.Component {
     // console.log('type===>', type);
     // console.log('e====>', e);
     //简写到一个函数 利用对象的方括号语法
+    const { name, checked, value } = e.target;
     this.setState({
-      [e.target.name]: e.target.name === 'isSingle' ? e.target.checked : e.target.value,
+      [name]: name === 'isSingle' ? checked : value,
     });
   };
   //   handleDesc = (e) => {
