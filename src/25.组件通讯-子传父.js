@@ -44,7 +44,7 @@ class Father extends React.Component {
     );
   }
   //   需要把this绑定为父组件,不然会被子组件调用(this原本指向子组件)
-  // 1.父组件提供方法用于获取数据 保证this就是父组件
+  // 父组件提供方法用于获取数据
   getMsg = (data, money) => {
     console.log('this', this);
     this.setState({

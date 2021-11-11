@@ -72,11 +72,10 @@ class Demo extends React.Component {
   }
   //删除功能  往state中删除一个对象
   handleDel(id) {
-    const item = this.state.commonList.filter((v) => v.id !== id);
     // console.log('item', item);
     this.setState(
       {
-        commonList: [...item],
+        commonList: this.state.commonList.filter((v) => v.id !== id)
       },
       () => {
         localStorage.setItem('localList', JSON.stringify([...this.state.commonList]));
