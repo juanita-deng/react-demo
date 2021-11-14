@@ -1,56 +1,67 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-
+import reactDom from 'react-dom';
+import './19.demo.css';
+import CommentList from './24.components/comment-list';
+import Comment from './24.components/comment';
 /**
- *  组件通讯:子传父
- *         1.父组件提供一个方法用于获取数据(需要把this绑定为父组件,不然会被子组件调用(this原本指向子组件))
- *         2.父组件通过props把方法传给子组件(利用props可以传递任意类型的数据)
- *         3.子组件调用父组件传递过来的方法即可,就可以传递参数
+ * 功能点:1.list列表的展示(组件拆分,组件通讯)
+ *       2.列表的条件渲染
+ *       3.清空功能
+ *       4.添加功能(受控组价,setstate修改状态staten中添加一个对象,非空判断,清空输入内容)
+ *       5.删除功能(setstate修改状态staten中删除一个对象)
+ *       6.本地缓存功能
  */
-class Son extends React.Component {
-  state = {
-    sonDate: '我是子组件私有数据',
-    money: 100,
-  };
+class Demo extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      commonList: [], // { id: 1, name: '刘德华', content: '冰雨' }
+    };
+  }
   render() {
-    console.log('props', this.props);
     return (
-      <div style={{ backgroundColor: 'skyblue', padding: '10px' }}>
-        <h1>我是子组件</h1>
-        <button onClick={this.handleClick}>调用父组件方法从而获取数据</button>
+      <div className='app'>
+        <Comment getNewList={this.getNewList.bind(this)} clearList={this.handleClear.bind(this)} />
+        <CommentList commonList={this.state.commonList} delList={this.handleDel.bind(this)} />
       </div>
     );
   }
-  handleClick = () => {
-    const { sonDate, money } = this.state;
-    this.props.getMsg(sonDate, money);
-    console.log(this.props, 123);
-  };
-}
-class Father extends React.Component {
-  state = {
-    data: '',
-    money: '',
-  };
-  render() {
-    return (
-      <div style={{ backgroundColor: 'pink', padding: '10px' }}>
-        <h1>我是父组件</h1>
-        <Son getMsg={this.getMsg} />
-        <div>
-          接收到子组件的数据:{this.state.data}--{this.state.money}
-        </div>
-      </div>
-    );
-  }
-  //   需要把this绑定为父组件,不然会被子组件调用(this原本指向子组件)
-  // 1.父组件提供方法用于获取数据 保证this就是父组件
-  getMsg = (data, money) => {
-    console.log('this', this);
+  componentDidMount() {
+    const localList = JSON.parse(localStorage.getItem('localList')) || [];
     this.setState({
-      data: data,
-      money: money,
+      commonList: localList,
     });
-  };
+  }
+  //接收子组件comment传递过来的需要新增的数据,然后新增过后通过props方式传递给另一个子组件commentlist
+  //添加(发表评论)
+  getNewList(news) {
+    console.log('news', news);
+    this.setState(
+      {
+        commonList: [news, ...this.state.commonList],
+      },
+      // setstate中第二个参数可以动态获取到state的值
+      () => {
+        localStorage.setItem('localList', JSON.stringify([...this.state.commonList]));
+      },
+    );
+  }
+  //删除
+  handleDel(id) {
+    this.setState(
+      {
+        commonList: this.state.commonList.filter((v) => v.id !== id),
+      },
+      () => {
+        localStorage.setItem('localList', JSON.stringify([...this.state.commonList]));
+      },
+    );
+  }
+  //清空
+  handleClear() {
+    this.setState({ commonList: [] }, () => {
+      localStorage.setItem('localList', JSON.stringify([]));
+    });
+  }
 }
-ReactDOM.render(<Father />, document.getElementById('root'));
+reactDom.render(<Demo />, document.getElementById('root'));
