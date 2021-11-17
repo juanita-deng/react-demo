@@ -1,16 +1,18 @@
 import React from 'react';
-import reactDom from 'react-dom';
+import ReactDOM from 'react-dom';
+
 /**
  *
  */
 
-class App extends React.Component {
+class Demo extends React.Component {
   render() {
     return (
       <div>
-        <h1>我是根组件</h1>
+        <h1>组件的生命周期</h1>
       </div>
     );
   }
 }
-reactDom.render(<App></App>, document.getElementById('root'));
+
+ReactDOM.render(<Demo />, document.getElementById('root'));
