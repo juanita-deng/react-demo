@@ -10,7 +10,30 @@ import reactDom from 'react-dom';
  *     卸载阶段:componentWillUnmount                                |
  *                                                       控制render是否要更新(不常用)
  */
-
+class Doudou extends React.Component {
+  render() {
+    console.log('Doudou  render钩子函数');
+    return (
+      <>
+        <h5>豆豆组件</h5>
+        <div>我被打了{this.props.count}次</div>
+      </>
+    );
+  }
+  componentDidUpdate() {
+    console.log('Doudou componentDidUpdate钩子函数');
+  }
+  componentDidMount() {
+    this.timeId = setInterval(() => {
+      console.log('我怕,别打我');
+    }, 1000);
+  }
+  //卸载阶段:一般用于清楚定时器
+  componentWillUnmount() {
+    console.log('componentWillUnmount钩子函数----------------->豆豆被打死了');
+    clearInterval(this.timeId);
+  }
+}
 class App extends React.Component {
   /**   constructor作用:
    *  1.constructor适合做一些初始化的操作 提供数据
@@ -24,21 +47,33 @@ class App extends React.Component {
     console.log();
     this.state = {
       msg: 'hello vite',
+      count: 0,
     };
     this.handleClick = this.handleClick.bind(this);
   }
   //创建/更新阶段 每次渲染都会执行
   //注意!!!:不要在render函数中不要调用setState,否则会导致死循环
   render() {
-    console.log('render钩子函数');
+    console.log('app  render钩子函数');
     return (
       <div>
         <h1>组件的生命周期</h1>
         <button onClick={this.handleClick}>修改this</button>
+        <div>父组件:豆豆的次数:{this.state.count}</div>
+        <button onClick={this.handleCount.bind(this)}>打豆豆</button>
+        <hr />
+        {this.state.count < 5 ? <Doudou count={this.state.count} /> : <div>豆豆被打死了</div>}
       </div>
     );
   }
-  //挂载阶段(发送请求,操作dom)
+  handleCount() {
+    this.setState({
+      count: this.state.count + 1,
+    });
+
+    // this.forceUpdate();
+  }
+  //挂载阶段(一般在此阶段发送请求,操作dom)
   componentDidMount() {
     console.log('componentDidMount钩子函数');
     console.log('操作dom----->', document.querySelector('h1').innerHTML);
@@ -52,11 +87,12 @@ class App extends React.Component {
    * 注意!!!:不要在componentDidUpdate函数中不要调用setState,会重新触发更新,会导致死循环
    */
   componentDidUpdate() {
-    console.log('componentDidUpdate钩子函数');
+    console.log('app componentDidUpdate钩子函数');
   }
   //控制render是否要更新(不常用)
   shouldComponentUpdate() {
     console.log('shouldComponentUpdate钩子函数');
+    return true; // 若写了此钩子函数,必须要返回一个布尔值,否则后面执行的render和更新钩子会报错
   }
   //卸载阶段
   componentWillUnmount() {

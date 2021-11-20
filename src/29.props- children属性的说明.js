@@ -1,6 +1,7 @@
 import React from 'react';
 import reactDom from 'react-dom';
 /**   children属性
+ *      (props的children属性其实就是vue中的插槽)
  *      1.children是props中一个比较特殊的属性,用于表示组件标签内部的子节点(类似vue中的插槽)
  *      2.这个children可以是任意类型的值(文本,react元素,组件,甚至是函数)
  *      3.children属性和普通的props是一样,不一样的地方是除了传递属性,还可以放在标签中间
